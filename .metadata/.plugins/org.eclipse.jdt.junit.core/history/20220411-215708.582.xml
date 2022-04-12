@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="RegistrationServiceTest" project="agendamento-meetup" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest" time="0.019" displayname="RegistrationServiceTest" uniqueid="[engine:junit-jupiter]/[class:com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest]">
+    <testcase name="createRegistrationTest" classname="com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest" time="0.0" displayname="cadastraRegistration - Sucesso" uniqueid="[engine:junit-jupiter]/[class:com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest]/[method:createRegistrationTest()]"/>
+    <testcase name="getByIdRegistrationTest" classname="com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest" time="0.002" displayname="buscaRegistrationByID - Sucesso" uniqueid="[engine:junit-jupiter]/[class:com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest]/[method:getByIdRegistrationTest()]"/>
+    <testcase name="getAllRegistrationTest" classname="com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest" time="0.017" displayname="buscaTodosRegistration - Sucesso" uniqueid="[engine:junit-jupiter]/[class:com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationServiceTest]/[method:getAllRegistrationTest()]"/>
+  </testsuite>
+</testrun>

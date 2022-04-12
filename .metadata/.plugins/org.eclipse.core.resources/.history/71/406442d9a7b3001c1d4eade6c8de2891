@@ -1,0 +1,28 @@
+package com.womakerscode.microservicemeetup.agendamentomeetup.service;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.womakerscode.microservicemeetup.agendamentomeetup.repository.RegistrationRepository;
+import com.womakerscode.microservicemeetup.agendamentomeetup.service.impl.RegistrationServiceImpl;
+
+@ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+public class RegistrationServiceTest {
+
+	@Autowired
+	RegistrationService registrationService;
+	
+	@MockBean
+    RegistrationRepository repository;
+	
+	
+	@BeforeEach
+    public void setUp() {
+        this.registrationService = new RegistrationServiceImpl(repository);
+    }
+}

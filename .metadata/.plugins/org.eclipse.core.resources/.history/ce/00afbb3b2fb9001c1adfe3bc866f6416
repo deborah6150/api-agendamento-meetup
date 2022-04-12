@@ -1,0 +1,62 @@
+package com.womakerscode.microservicemeetup.agendamentomeetup.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Registration;
+import com.womakerscode.microservicemeetup.agendamentomeetup.repository.RegistrationRepository;
+
+
+public class RegistrationServiceTest {
+
+	private RegistrationRepository mockRegistrationRepository = Mockito.mock(RegistrationRepository.class);
+
+	@Autowired
+    private RegistrationService registrationService;
+	
+	@Test
+	public void criarRegistrationTest() {
+		Registration registration = new Registration();
+		registration.setNome("Deborah");
+		registration.setDataDoRegistro("10/04/2022");
+		registration.setRegistration("001");
+		
+		Mockito.when(mockRegistrationRepository.save(registration));
+		assertEquals("Deborah", registration.getNome());
+		assertNotNull(registration);
+//		assertNotNull(registration.getId());
+	}
+	
+//	@Test
+//    public void calculaValorFaturaAntesVencimento() {
+//
+//        Fatura fatura = new Fatura();
+//        Date vencimento = getData(5);
+//        fatura.setVencimento(vencimento);
+//        fatura.setValor(new BigDecimal(100));
+//        fatura.setDescontoPontualidade(new BigDecimal(15));
+//
+//        Mockito.when(mockFaturaRepository.findById(3L)).thenReturn(Optional.of(fatura));
+//
+//        BigDecimal valorFatura = faturaService.calculaValorFatura(3L);
+//        Assert.assertEquals(new BigDecimal("85"), valorFatura);
+//    }
+		
+		
+
+	
+    
+}

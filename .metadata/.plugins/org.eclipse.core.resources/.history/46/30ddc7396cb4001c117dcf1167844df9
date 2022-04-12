@@ -1,0 +1,107 @@
+package com.womakerscode.microservicemeetup.agendamentomeetup.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.runner.RunWith;
+import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Registration;
+import com.womakerscode.microservicemeetup.agendamentomeetup.repository.RegistrationRepository;
+import com.womakerscode.microservicemeetup.agendamentomeetup.service.impl.RegistrationServiceImpl;
+
+//@ExtendWith(SpringExtension.class)
+//@ActiveProfiles("test")
+@RunWith(MockitoJUnitRunner.class)
+public class RegistrationServiceTest {
+
+	@InjectMocks
+	private RegistrationService registrationService;
+	
+	@Mock
+    private RegistrationRepository repository;
+	
+	@Test
+	@DisplayName("Salva um registration")
+	public void testaCreateRegistration() {
+		Registration registration = new Registration();
+		registration.setNome("Deborah");
+		registration.setDataDoRegistro("03/04/2022");
+		registration.setRegistration("001");
+		verify(repository, times(1)).save(registration);
+		
+//		when(repository.save((Registration) any())).thenReturn(registration);
+//		assertSame(registration, registrationService.createRegistration(new Registration()));
+//		when(this.clienteRepository.save((Cliente) any())).thenReturn(cliente2);
+//        when(this.clienteRepository.findByCpf(anyString())).thenReturn(Optional.<Cliente>empty());
+//        assertSame(cliente2, this.clienteService.cadastraCliente(new Cliente()));
+	}
+	
+}
+	
+//	@BeforeEach
+//    public void setUp() {
+//        this.registrationService = new RegistrationServiceImpl(repository);
+//    }
+//	
+//	private Registration createValidRegistration() {
+//        return Registration.builder()
+//                .nome("Deborah Caroline Rodrigues Oliveira")
+//                .dataDoRegistro("03/04/2022")
+//                .registration("001")
+//                .build();
+//    }
+//	@Test
+//	@DisplayName("Salva um registration")
+//	public void testaCreateRegistration() {
+//		
+//		Registration registration = createValidRegistration();
+//      // excucao
+//      Mockito.when(repository.existsByRegistration(Mockito.anyString())).thenReturn(false);
+//      Mockito.when(repository.save(registration)).thenReturn(createValidRegistration());
+//
+//      Registration savedRegistration = registrationService.createRegistration(registration);
+//
+//      // assert
+//      assertThat(savedRegistration.getId()).isEqualTo(1);
+//      assertThat(savedRegistration.getNome()).isEqualTo("Deborah Caroline Rodrigues Oliveira");
+//      assertThat(savedRegistration.getDataDoRegistro()).isEqualTo("03/04/2022");
+//      assertThat(savedRegistration.getRegistration()).isEqualTo("001");
+//	}
+//	
+////	@Test
+////    @DisplayName("Should save an registration")
+////    public void saveStudent() {
+////
+////        // cenario
+////        Registration registration = createValidRegistration();
+////
+////        // excucao
+////        Mockito.when(repository.existsByRegistration(Mockito.anyString())).thenReturn(false);
+////        Mockito.when(repository.save(registration)).thenReturn(createValidRegistration());
+////
+////        Registration savedRegistration = registrationService.save(registration);
+////
+////        // assert
+////        assertThat(savedRegistration.getId()).isEqualTo(101);
+////        assertThat(savedRegistration.getName()).isEqualTo("Ana Neri");
+////        assertThat(savedRegistration.getDateOfRegistration()).isEqualTo("01/04/2022");
+////        assertThat(savedRegistration.getRegistration()).isEqualTo("001");
+////
+////    }
+//}
