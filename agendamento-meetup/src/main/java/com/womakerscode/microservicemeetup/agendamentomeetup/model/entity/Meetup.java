@@ -1,13 +1,12 @@
 package com.womakerscode.microservicemeetup.agendamentomeetup.model.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,23 +19,23 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "TB_REGISTRATION")
-public class Registration {
+@Table(name= "TB_MEETUP")
+public class Meetup {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@Column
-	private String nome;
-	
-	@Column
-	private String dataDoRegistro;
-	
-	@Column
-	private String registration;
-	
-	@OneToMany(mappedBy = "registration")
-    private List<Meetup> meetups;
-	
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column
+    private String event;
+
+    @JoinColumn(name = "id_meetup")
+    @ManyToOne
+    private Registration registration;
+
+    @Column
+    private String dataMeetup;;
+
+    @Column
+    private Boolean registered;
 }

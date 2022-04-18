@@ -1,5 +1,0 @@
-package com.womakerscode.microservicemeetup.agendamentomeetup.model.entity;
-
-public class Meetup {
-
-}
