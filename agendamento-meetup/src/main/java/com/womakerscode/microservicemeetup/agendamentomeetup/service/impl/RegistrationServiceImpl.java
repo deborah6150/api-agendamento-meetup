@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.womakerscode.microservicemeetup.agendamentomeetup.exception.BadRequestException;
 import com.womakerscode.microservicemeetup.agendamentomeetup.exception.BusinessException;
 import com.womakerscode.microservicemeetup.agendamentomeetup.exception.EntityNotFoundException;
+import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Meetup;
 import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Registration;
 import com.womakerscode.microservicemeetup.agendamentomeetup.repository.RegistrationRepository;
+import com.womakerscode.microservicemeetup.agendamentomeetup.service.MeetupService;
 import com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationService;
 
 @Service
@@ -21,17 +23,23 @@ public class RegistrationServiceImpl implements RegistrationService{
 	@Autowired
 	RegistrationRepository repository;
 	
+	@Autowired
+	MeetupService meetupService;
 
-	public RegistrationServiceImpl(RegistrationRepository repository) {
+	public RegistrationServiceImpl(RegistrationRepository repository, MeetupService meetupService) {
 		this.repository = repository;
+		this.meetupService = meetupService;
 	}
 	
 
 	@Override
-	public Registration createRegistration(Registration registration) {
-		if(repository.existsByRegistration(registration.getRegistration())) {
-			throw new BusinessException("Cadastro já criado");
+	public Registration createRegistration(Long idMeetup, Registration registration) {
+		if(repository.existsByMatricula(registration.getMatricula())) {
+			throw new BusinessException("Registro já criado");
 		}
+		Meetup meetup = meetupService.getMeetupById(idMeetup);
+		meetup.getListaRegistrations().add(registration);
+		registration.setMeetup(meetup);
 		return repository.save(registration);
 	}
 
@@ -44,19 +52,8 @@ public class RegistrationServiceImpl implements RegistrationService{
 	public Registration getRegistrationById(Long id) {
 		
 		return repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Cadastro não encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Registro não encontrado"));
 	}
-
-//	@Override
-//	public Registration editRegistration(Long id, Registration registration) {
-////		repository.findById(id).ifPresent(consume -> {
-////			throw new BadRequestException ("Cliente não encontrado para o ID:" + id);
-////		});		
-//		repository.findByRegistration(registration.getRegistration()).ifPresent(consume -> {
-//			throw new BadRequestException("Já existe um Cadastro com este registration.");
-//		});
-//		return repository.save(registration);
-//	}
 	
 	@Override
 	public Registration editRegistration(Long id, Registration registration) {
@@ -68,12 +65,12 @@ public class RegistrationServiceImpl implements RegistrationService{
 			
 			novosDadosRegistration.setNome(registration.getNome());
 			novosDadosRegistration.setDataDoRegistro(registration.getDataDoRegistro());
-			novosDadosRegistration.setRegistration(registration.getRegistration());
+			novosDadosRegistration.setMatricula(registration.getMatricula());
 			
 			novosDadosRegistration = repository.save(novosDadosRegistration);
 		}
 		else {
-			throw new BadRequestException ("Cliente não encontrado para o ID:" + id);
+			throw new BadRequestException ("Registro não encontrado para o ID:" + id);
 		}
 		return novosDadosRegistration;
 	}
@@ -82,19 +79,11 @@ public class RegistrationServiceImpl implements RegistrationService{
 	@Override
 	public Object deleteRegistration(Long id) {
 		if (repository.findById(id).isEmpty())
-            throw new BadRequestException ("Cliente não encontrado para o ID:" + id);
+            throw new BadRequestException ("Registro não encontrado para o ID:" + id);
     	
 		repository.deleteById(id);
 		return ResponseEntity.status(HttpStatus.OK);
 		
 	}
-	
-	@Override
-    public Registration getRegistrationByRegistrationAttribute(String registrationAttribute) {
-        return repository.findByRegistration(registrationAttribute)
-        		.orElseThrow(() -> new EntityNotFoundException("Cadastro não encontrado"));
-    }
-	
-	
 	
 }

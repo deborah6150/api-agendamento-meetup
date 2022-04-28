@@ -18,7 +18,7 @@ import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Regist
 import com.womakerscode.microservicemeetup.agendamentomeetup.service.RegistrationService;
 
 @RestController
-@RequestMapping("/registration")
+@RequestMapping("/api/registration")
 public class RegistrationController {
 
 	@Autowired
@@ -34,9 +34,9 @@ public class RegistrationController {
 		return registrationService.getRegistrationById(id);
 	}
 	
-	@PostMapping("/")
-	public ResponseEntity<Registration> createRegistration(@RequestBody Registration registration) {
-		return new ResponseEntity<Registration>(registrationService.createRegistration(registration), HttpStatus.CREATED);
+	@PostMapping("/{idMeetup}/")
+	public ResponseEntity<Registration> createRegistration(@PathVariable(required = true) Long idMeetup, @RequestBody Registration registration) {
+		return new ResponseEntity<Registration>(registrationService.createRegistration(idMeetup, registration), HttpStatus.CREATED);
 
 	}
 	

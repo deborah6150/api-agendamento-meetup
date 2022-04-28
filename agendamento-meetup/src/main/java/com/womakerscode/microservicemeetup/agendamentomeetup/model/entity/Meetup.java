@@ -1,13 +1,21 @@
 package com.womakerscode.microservicemeetup.agendamentomeetup.model.entity;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,19 +31,20 @@ import lombok.NoArgsConstructor;
 public class Meetup {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
-    private String event;
-
-    @JoinColumn(name = "id_meetup")
-    @ManyToOne
-    private Registration registration;
+    private String evento;
+    
+    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date dataMeetup;
 
     @Column
-    private String dataMeetup;;
-
-    @Column
-    private Boolean registered;
+    private String local;
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "meetup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Registration> listaRegistrations = new ArrayList<Registration>();
 }

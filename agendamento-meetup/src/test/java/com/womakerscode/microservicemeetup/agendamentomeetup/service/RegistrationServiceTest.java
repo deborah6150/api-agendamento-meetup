@@ -8,36 +8,60 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.womakerscode.microservicemeetup.agendamentomeetup.exception.BadRequestException;
 import com.womakerscode.microservicemeetup.agendamentomeetup.exception.EntityNotFoundException;
+import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Meetup;
 import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Registration;
 import com.womakerscode.microservicemeetup.agendamentomeetup.repository.RegistrationRepository;
 import com.womakerscode.microservicemeetup.agendamentomeetup.service.impl.RegistrationServiceImpl;
 
-
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class RegistrationServiceTest {
-
-	private RegistrationRepository mockRegistrationRepository = Mockito.mock(RegistrationRepository.class);
 	
-	private RegistrationServiceImpl registrationService = new RegistrationServiceImpl(mockRegistrationRepository);
+	
+	private RegistrationService registrationService;
+	
+	@MockBean
+	private RegistrationRepository mockRegistrationRepository;
+	
+	@BeforeEach
+    public void setUp() {
+        this.registrationService = new RegistrationServiceImpl(mockRegistrationRepository, null);
+    }
+	
 	@Test
 	@DisplayName("cadastraRegistration - Sucesso")
 	public void createRegistrationTest() {
+		
+		Meetup meetup = new Meetup();
+		meetup.setId(1L);
+		meetup.setEvento("Curso de Java");
+		meetup.setLocal("Rua getulio vargas 5000");
+		meetup.setDataMeetup(new Date(21-05-2024));
+		
 		Registration registration = new Registration();
 		registration.setId(1L);
 		registration.setNome("Deborah");
-		registration.setDataDoRegistro("10/04/2022");
-		registration.setRegistration("001");
+		registration.setDataDoRegistro(new Date());
+		registration.setMatricula("001");
+		registration.setMeetup(meetup);
 		
 		Mockito.when(mockRegistrationRepository.save((Registration) any())).thenReturn(registration);
-		Registration registr = registrationService.createRegistration(registration);
+		Registration registr = registrationService.createRegistration(1L,registration);
 		assertEquals("Deborah", registr.getNome());
 		assertEquals(1L, registr.getId());
 		assertNotNull(registr.getId());
@@ -52,14 +76,14 @@ public class RegistrationServiceTest {
 		Registration registration = new Registration();
 		registration.setId(1L);
 		registration.setNome("Deborah");
-		registration.setDataDoRegistro("10/04/2022");
-		registration.setRegistration("001");
+		registration.setDataDoRegistro(new Date());
+		registration.setMatricula("001");
 		
 		Registration registration2 = new Registration();
 		registration2.setId(1L);
 		registration2.setNome("nome2");
-		registration2.setDataDoRegistro("10/04/2022");
-		registration2.setRegistration("002");
+		registration2.setDataDoRegistro(new Date());
+		registration2.setMatricula("002");
 		
 		List<Registration> registrationList = new ArrayList<>();
 		registrationList.add(registration);
@@ -80,8 +104,8 @@ public class RegistrationServiceTest {
 		Registration registration = new Registration();
 		registration.setId(1L);
 		registration.setNome("Deborah");
-		registration.setDataDoRegistro("10/04/2022");
-		registration.setRegistration("001");
+		registration.setDataDoRegistro(new Date());
+		registration.setMatricula("001");
 		
 		Mockito.when(mockRegistrationRepository.findById(1L)).thenReturn(Optional.of(registration));
 		
@@ -109,15 +133,15 @@ public class RegistrationServiceTest {
 		Registration registration = new Registration();
 		registration.setId(1L);
 		registration.setNome("Deborah");
-		registration.setDataDoRegistro("10/04/2022");
-		registration.setRegistration("001");
+		registration.setDataDoRegistro(new Date());
+		registration.setMatricula("001");
 		Optional<Registration> ofResult = Optional.<Registration>of(registration);
 		
 		Registration registration2 = new Registration();
 		registration2.setId(1L);
 		registration2.setNome("Deborah Caroline");
-		registration2.setDataDoRegistro("10/04/2022");
-		registration2.setRegistration("0001");
+		registration2.setDataDoRegistro(new Date());
+		registration2.setMatricula("0001");
 		
 		Mockito.when(mockRegistrationRepository.save((Registration) any())).thenReturn(registration2);
 		Mockito.when(mockRegistrationRepository.findById((Long) any())).thenReturn(ofResult);
@@ -141,8 +165,8 @@ public class RegistrationServiceTest {
 		Registration registration = new Registration();
 		registration.setId(1L);
 		registration.setNome("Deborah");
-		registration.setDataDoRegistro("10/04/2022");
-		registration.setRegistration("001");
+		registration.setDataDoRegistro(new Date());
+		registration.setMatricula("001");
 		
 		Mockito.when(mockRegistrationRepository.findById(1L)).thenReturn(Optional.of(registration));
 		Object registr = registrationService.deleteRegistration(1L);

@@ -6,11 +6,10 @@ import com.womakerscode.microservicemeetup.agendamentomeetup.model.entity.Regist
 
 public interface RegistrationService {
 
-	Registration createRegistration(Registration registration);
+	Registration createRegistration(Long idMeetup, Registration registration);
 	List<Registration> getAllRegistrations();
 	Registration getRegistrationById(Long id);
 	Registration editRegistration(Long id, Registration registration);
 	Object deleteRegistration(Long id);
-	Registration getRegistrationByRegistrationAttribute(String registrationAttribute);
 	
 }
