@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -35,6 +36,7 @@ public class Meetup {
     private Long id;
 
     @Column
+    @NotEmpty(message = "Campo obrigatorio")
     private String evento;
     
     @Column
@@ -42,6 +44,7 @@ public class Meetup {
     private Date dataMeetup;
 
     @Column
+    @NotEmpty(message = "Campo obrigatorio.")
     private String local;
     
     @JsonManagedReference
