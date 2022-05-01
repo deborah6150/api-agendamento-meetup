@@ -36,11 +36,14 @@ public class RegistrationServiceTest {
 	private RegistrationService registrationService;
 	
 	@MockBean
+	private MeetupService meetupService;
+	
+	@MockBean
 	private RegistrationRepository mockRegistrationRepository;
 	
 	@BeforeEach
     public void setUp() {
-        this.registrationService = new RegistrationServiceImpl(mockRegistrationRepository, null);
+        this.registrationService = new RegistrationServiceImpl(mockRegistrationRepository, meetupService);
     }
 	
 	@Test
@@ -60,6 +63,7 @@ public class RegistrationServiceTest {
 		registration.setMatricula("001");
 		registration.setMeetup(meetup);
 		
+		Mockito.when(meetupService.getMeetupById(Mockito.anyLong())).thenReturn(meetup);
 		Mockito.when(mockRegistrationRepository.save((Registration) any())).thenReturn(registration);
 		Registration registr = registrationService.createRegistration(1L,registration);
 		assertEquals("Deborah", registr.getNome());
