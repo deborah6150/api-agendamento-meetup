@@ -49,7 +49,7 @@ As seguintes ferramentas foram utilizadas na construção do projeto:
 &rarr; <a href="https://www.postman.com/">Postman</a> - Teste local das APIs  <br>
 &rarr; <a href="https://swagger.io/">Swagger</a> - Documentação da APIs.  <br>
 &rarr; <a href="https://junit.org/junit5/">Junit/Mockito</a> - Teste automatizados da APIs.  <br>
-&rarr; <a href="https://azure.microsoft.com/en-us/">Azure</a> - Deploy da APIs.  <br>
+&rarr; <a href="http://aws.amazon.com">AWS</a> - Deploy da APIs.  <br>
 
 <div id='requisitos'/>
 
