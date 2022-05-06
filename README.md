@@ -96,6 +96,8 @@ $ cd agendamento-meetup
 
 - Pode ser feito pelo swagger: <a href="http://localhost:8080/swagger-ui/index.html#/">http://localhost:8080/swagger-ui/index.html#/</a><br>
 
+- Pode ser feito pelo link deploy AWS: <a href="http://meetupapp-env.eba-933ax7va.us-east-1.elasticbeanstalk.com/swagger-ui/index.html#/">http://meetupapp-env.eba-933ax7va.us-east-1.elasticbeanstalk.com/swagger-ui/index.html#/</a><br>
+
 
 <br>
 
