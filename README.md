@@ -81,7 +81,7 @@ Entre dentro da pasta:
 $ cd agendamento-meetup
 ```
 
-### Compilando e rodando o projeto:
+### 👩🏽‍💻 Compilando e rodando o projeto:
 
 - Acesse o projeto por uma IDE de sua preferência: INTELIJ, ECLIPSE, VSCODE etc.
 
@@ -92,7 +92,7 @@ $ cd agendamento-meetup
 
 - Logo após, abra o seu navegador e acesse a pagina inicial: `http://localhost:8080/`
 
-### Teste da API
+### 🚀 Teste da API
 
 - Pode ser feito pelo swagger: <a href="http://localhost:8080/swagger-ui/index.html#/">http://localhost:8080/swagger-ui/index.html#/</a><br>
 
